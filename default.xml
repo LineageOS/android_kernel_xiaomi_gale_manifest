@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
-  <remote  name="aosp" fetch=".." review="https://android-review.googlesource.com/" />
+  <remote  name="aosp" fetch="https://android-review.googlesource.com/" />
   <default revision="main-kernel-build-2024" remote="aosp" sync-j="4" />
+
+  <remote name="gale" fetch="https://github.com/xiaomi-gale" />
 
   <superproject name="kernel/superproject" remote="aosp" revision="common-android15-6.6" />
 
-  <project path="build/kernel" name="kernel/build" groups="ddk" >
+  <project path="build/kernel" name="kernel/build" groups="kernel-platform,kernel-platform-66" >
     <linkfile src="kleaf/bazel.sh" dest="tools/bazel" />
-    <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
     <linkfile src="kleaf/bzlmod/bazel.MODULE.bazel" dest="MODULE.bazel" />
     <linkfile src="kleaf/bzlmod/bazel.WORKSPACE.bzlmod" dest="WORKSPACE.bzlmod" />
   </project>
+  <project path="build/bazel_mgk_rules" name="android_kernel_build_bazel_mgk_rules" remote="gale" revision="lineage-24.0" sync-c="true" >
+    <linkfile src="kleaf/bazel.WORKSPACE" dest="WORKSPACE" />
+  </project>
   <project path="build/bazel_common_rules" name="platform/build/bazel_common_rules" groups="ddk" />
-  <project path="common" name="kernel/common" revision="android15-6.6" />
+  <project path="kernel-6.6" name="kernel/common" revision="android15-6.6-2026-10" />
   <!-- Uncomment for local testing only -->
   <!-- project path="kernel/tests" name="kernel/tests" revision="main-kernel" clone-depth="1" / -->
   <project path="kernel/configs" name="kernel/configs" revision="main"/>
@@ -52,4 +56,10 @@
   <project path="external/toybox" name="platform/external/toybox" groups="ddk"/>
   <project path="external/zlib" name="platform/external/zlib" groups="ddk"/>
   <project path="external/zopfli" name="platform/external/zopfli" groups="ddk"/>
+
+  <!-- gale kernel sources -->
+  <project path="kernel_device_modules-6.6" name="android_kernel_xiaomi_gale-modules" revision="lineage-24.0" remote="gale">
+    <linkfile src="build.config.gale" dest="build.config" />
+  </project>
+  <project path="vendor/mediatek/kernel_modules" name="android_kernel_xiaomi_gale-mediatek_modules" revision="lineage-24.0" remote="gale" />
 </manifest>
