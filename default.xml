@@ -60,7 +60,7 @@
   <project path="external/zopfli" name="platform/external/zopfli" groups="ddk"/>
 
   <!-- gale kernel sources -->
-  <project path="kernel_device_modules-6.6" name="LineageOS/android_kernel_xiaomi_gale-modules" revision="refs/heads/lineage-24.0" remote="github" sync-c="true" />
+  <project path="kernel_device_modules-6.6" name="LineageOS/android_kernel_xiaomi_gale-modules" revision="refs/heads/lineage-24.0" remote="github" sync-c="true" >
     <linkfile src="build.config.gale" dest="build.config" />
     <linkfile src="build_mgk_64_k66.sh" dest="build_mgk_64_k66.sh" />
   </project>
